@@ -5,6 +5,9 @@ const nextConfig = {
 			{
 				hostname: 'www.themoviedb.org'
 			},
+			{
+				hostname: 'rickandmortyapi.com'
+			}
 		],
 	},
 }
