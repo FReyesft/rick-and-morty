@@ -4,6 +4,7 @@
 import { useEffect, useState } from 'react';
 //Next
 import Image from 'next/image';
+import Link from 'next/link'
 //App
 import { Characters } from '@/app/interfaces/CharacterResponse.interface';
 //Icons
@@ -42,8 +43,8 @@ export default function Characters({ search }) {
   }
 
   const handleLastPage = () => {
-    if(page === 42) return
-    setPage(42)
+    if(page === characters.info.pages) return
+    setPage(characters.info.pages)
   } 
 
   const handleFirstPage = () => {
@@ -60,18 +61,18 @@ export default function Characters({ search }) {
   return (
     <>
     <div><Toaster position='bottom-left'/></div>
-    <div className='mt-4 w-1/3 flex justify-center p-1'>
+    <div className='mt-4 full flex justify-center p-1'>
       <ul className='flex justify-center items-center text-lg select-none'>
         <li className='mr-3 cursor-pointer' onClick={handleFirstPage}>{'<<'}</li>
         <li className='mr-2 cursor-pointer' onClick={handlePrevPage}><FaArrowCircleLeft/></li>
-        <li>{page}</li>
+        <li>{`${page} - ${characters?.info.pages}`}</li>
         <li className='ml-2 cursor-pointer' onClick={handleNextPage}><FaArrowCircleRight/></li>
         <li className='ml-3 cursor-pointer' onClick={handleLastPage}>{'>>'}</li>
       </ul>
     </div>
     <section className="md:grid flex flex-wrap md:grid-cols-2">
       { filteredCharacters.map((character) => (
-          <div key={character.id} className="flex bg-white/10 p-4 m-2 min-w-[460px]">
+          <div key={character.id} className="flex bg-white/10 p-4 m-2 w-[460px]">
             <Image
               priority
 							style={{width: 180, height: 180}}
@@ -80,11 +81,11 @@ export default function Characters({ search }) {
               height={180}
               src={character.image}
             />
-            <ul className="ml-3">
+            <ul className="ml-3 relative w-full">
               <li className="text-2xl font-medium">{character.name}</li>
               <li className="mt-2">
                 {character.status === 'Alive' ? `🟢${character.status}` : 
-                 character.status === 'unknown' ? `Desconocido` : 
+                 character.status === 'unknown' ? `❔Desconocido` : 
                 `🔴${character.status}`} - {character.species}
               </li>
               <li className="mt-2">
@@ -92,10 +93,8 @@ export default function Characters({ search }) {
                 <br />
                 <span>{character.location.name}</span>
               </li>
-              <li className="mt-2">
-                <small className="text-sm text-slate-400">Visto por primera vez en:</small>
-                <br />
-                <span>{character.origin.name}</span>
+              <li className='absolute bottom-0 right-0'>
+                <Link className="text-lg text-slate-400 hover:text-amber-600 select-none cursor-pointer" href={`/character/${character.id}`}>Ver mas</Link>
               </li>
             </ul>
           </div>
