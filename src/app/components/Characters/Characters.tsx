@@ -65,7 +65,7 @@ export default function Characters({ search }) {
       <ul className='flex justify-center items-center text-lg select-none'>
         <li className='mr-3 cursor-pointer' onClick={handleFirstPage}>{'<<'}</li>
         <li className='mr-2 cursor-pointer' onClick={handlePrevPage}><FaArrowCircleLeft/></li>
-        <li>{`${page} - ${characters?.info.pages}`}</li>
+        <li>{`${page} / ${characters?.info.pages}`}</li>
         <li className='ml-2 cursor-pointer' onClick={handleNextPage}><FaArrowCircleRight/></li>
         <li className='ml-3 cursor-pointer' onClick={handleLastPage}>{'>>'}</li>
       </ul>
