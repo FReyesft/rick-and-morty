@@ -14,6 +14,10 @@ export default function CharacterInfo() {
 			try {
 				const response = await fetch(`${apiUrl}/character/${params.id}`)
 				const data:Character = await response.json()
+				data.name = null;
+				if(data.name === null){
+					throw new Error();
+				}
 				console.log(data)
 				setCharacter(data)
 			}	catch {
@@ -34,8 +38,9 @@ export default function CharacterInfo() {
 				alt={character?.name + "image"}
 				/>
 				<ul>
-					<li></li>
-					<li></li>
+					<li>{character?.name}</li>
+					<li>{character?.status}</li>
+					<li>{character?.gender}</li>
 				</ul>
 			</div>
 		</>
